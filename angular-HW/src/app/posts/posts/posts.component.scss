@@ -1,0 +1,16 @@
+.table {
+  width: 100%;
+}
+.table-2 {
+  width: 90%;
+}
+.center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3em;
+}
+.actions {
+  text-align: right;
+}
