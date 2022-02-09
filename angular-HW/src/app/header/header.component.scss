@@ -1,3 +1,40 @@
-header {
-  width: 100%;
+.flex {
+  display: flex;
+}
+.column {
+  flex-direction: column;
+}
+.row {
+  flex-direction: row;
+}
+.space-between {
+  justify-content: space-between;
+}
+.pad-0 {
+  padding: 0;
+}
+.width-70 {
+  width: 70%;
+}
+.width-80 {
+  width: 80%;
+}
+.width-90 {
+  width: 90%;
+}
+.mar-a {
+  margin: auto;
+}
+.header {
+  background-color: rgb(120, 120, 238);
+  margin-bottom: 2em;
+}
+.app-text {
+  color: rgb(22, 22, 73);
+  font-weight: 800;
+  font-size: 30px;
+}
+.color-blue {
+  background-color: rgb(28, 28, 110);
+  color: rgb(255, 255, 255);
 }

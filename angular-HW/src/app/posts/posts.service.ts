@@ -12,19 +12,19 @@ export class PostsService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<PostItemModel[]> {
+  public getPosts(): Observable<PostItemModel[]> {
     return this.http.get<PostItemModel[]>(this.url);
   }
-  getPostsById(id: number): Observable<PostItemModel> {
+  public getPostsById(id: number): Observable<PostItemModel> {
     return this.http.get<PostItemModel>(`${this.url}/${id}`);
   }
-  addPost(post: PostItemModel): Observable<PostItemModel> {
+  public addPost(post: PostItemModel): Observable<PostItemModel> {
     return this.http.post<PostItemModel>(this.url, post);
   }
-  updatePostById(post: PostItemModel): Observable<PostItemModel[]> {
+  public updatePostById(post: PostItemModel): Observable<PostItemModel[]> {
     return this.http.put<PostItemModel[]>(`${this.url}/${post.id}`, post);
   }
-  deletePostById(id: number): Observable<{}> {
+  public deletePostById(id: number): Observable<{}> {
     return this.http.delete(`${this.url}/${id}`);
   }
 }

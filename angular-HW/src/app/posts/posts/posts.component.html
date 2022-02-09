@@ -1,6 +1,7 @@
 <div class="center">
-    <a [routerLink]="['add']">Add Post</a>
-    <div class="mat-elevation-z8 table-2">
+    <a mat-raised-button [routerLink]="['add']"
+        class="add-btn">Add Post</a>
+    <div class="mat-elevation-z8 table">
         <table class="table" mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
@@ -45,17 +46,18 @@
                 <th class="actions" mat-header-cell *matHeaderCellDef>
                     ACTIONS
                 </th>
-                <td class="actions" mat-cell *matCellDef="let post">
+                <td class="actions width-25" mat-cell *matCellDef="let
+                    post">
                     <a [routerLink]="['edit/',post.id]"
-                        mat-stroked-button>
+                        mat-stroked-button color="primary">
                         Edit
                     </a>
                     <a [routerLink]="['view/',post.id]"
-                        mat-stroked-button>
+                        mat-stroked-button color="primary">
                         Details
                     </a>
-                    <button mat-stroked-button color="warn"
-                        (click)="delete(post.id)">Delete</button>
+                    <button mat-raised-button color="warn"
+                        (click)="delete(post.id)"><mat-icon>delete</mat-icon></button>
                 </td>
             </ng-container>
 

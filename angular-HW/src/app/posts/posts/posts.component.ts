@@ -44,7 +44,7 @@ export class PostsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
   }
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataStoreService.posts$
       .pipe(takeUntil(this.destroy$))
       .subscribe((posts) => {

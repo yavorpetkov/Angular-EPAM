@@ -1,5 +1,11 @@
-<header>
-    <nav>
-        <a [routerLink]="['home']">HOME</a>
-    </nav>
-</header>
+<mat-toolbar class="pad-0 header">
+    <div class="flex row space-between width-90 mar-a">
+        <h1 class="app-text">
+            POSTS APP
+        </h1>
+        <nav>
+            <a mat-flat-button [routerLink]="['home']" class="color-blue">HOME</a>
+        </nav>
+    </div>
+
+</mat-toolbar>

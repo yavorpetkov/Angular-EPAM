@@ -13,7 +13,7 @@ export class DataStoreService {
     this.initializePosts();
   }
 
-  initializePosts(): void {
+  private initializePosts(): void {
     this.postsService
       .getPosts()
       .pipe(take(1))
@@ -21,7 +21,7 @@ export class DataStoreService {
         this._posts$.next(posts);
       });
   }
-  generateId() {
+  public generateId(): number {
     return (
       Math.max.apply(
         Math,
@@ -31,22 +31,21 @@ export class DataStoreService {
       ) + 1
     );
   }
-  getPostById(id: number): PostItemModel {
+  public getPostById(id: number): PostItemModel {
     const index = this._posts$.value.findIndex((post) => post.id === id);
     return this._posts$.value[index];
   }
 
-  addPost(post: PostItemModel): void {
-    post.id = this._posts$.value.length + 1;
+  public addPost(post: PostItemModel): void {
     this._posts$.next([...this._posts$.value, post]);
   }
 
-  deletePost(id: number): void {
+  public deletePost(id: number): void {
     const newPosts = this._posts$.value.filter((post) => post.id !== id);
     this._posts$.next(newPosts);
   }
 
-  updatePost(post: PostItemModel): void {
+  public updatePost(post: PostItemModel): void {
     const index = this._posts$.value.findIndex((i) => i.id === post.id);
     this._posts$.value[index] = post;
   }

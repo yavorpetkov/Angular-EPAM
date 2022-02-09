@@ -1,30 +1,29 @@
 <div class="container column gap">
-    <form class="flex column gap border" [formGroup]="formData"
-        (ngSubmit)="onSubmit()"
-        *ngIf="formData">
-        <div *ngIf="data" class="flex space-between border center font-2
-            pad-1">
-            <span>ID:</span> <span>{{data.id}}</span>
-        </div>
-        <div class="flex space-between border center font-2 pad-1">
-            <label for="userId">User Id: </label>
-            <input class="input-id" type="text" formControlName="userId">
-        </div>
-        <div class="flex space-between border center font-2 pad-1">
-            <label for="title">Title: </label>
-            <input class="input-title" type="text" formControlName="title">
-        </div>
-        <div class="flex space-between border center font-2 pad-1">
-            <label for="body">Description: </label>
-            <textarea class="input-text-area" type="text"
-                formControlName="body"></textarea>
-        </div>
-        <div class="flex space-between border center font-2 pad-1">
-            <button class="font-2" [disabled]="currentPage !== 'add'"
-                (click)="addPost()">ADD</button>
-            <button class="font-2" [disabled]="currentPage !== 'edit'"
-                type="submit">SUBMIT</button>
+    <form [formGroup]="formData" (ngSubmit)="onSubmit()" class="flex column">
+        <mat-form-field>
+            <mat-label for="userId">User Id: </mat-label>
+            <input matInput type="number" formControlName="userId" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label for="title">Title: </mat-label>
+            <input matInput formControlName="title" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label for="body">Description: </mat-label>
+            <textarea matInput formControlName="body" class="input-text-area"></textarea>
+        </mat-form-field>
+
+        <div class="flex space-between">
+            <button mat-raised-button class="font-2" type="submit">
+                <span *ngIf="currentPage ===
+                    'add'">ADD</span>
+                <span *ngIf="currentPage ===
+                    'edit'">UPDATE</span>
+            </button>
+
         </div>
     </form>
-    <button class="font-2" (click)="goBack()">BACK</button>
+    <button mat-raised-button class="font-2" (click)="goBack()">BACK</button>
 </div>
