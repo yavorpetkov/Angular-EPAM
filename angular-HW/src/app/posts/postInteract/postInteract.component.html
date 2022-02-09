@@ -1,0 +1,30 @@
+<div class="container column gap">
+    <form class="flex column gap border" [formGroup]="formData"
+        (ngSubmit)="onSubmit()"
+        *ngIf="formData">
+        <div *ngIf="data" class="flex space-between border center font-2
+            pad-1">
+            <span>ID:</span> <span>{{data.id}}</span>
+        </div>
+        <div class="flex space-between border center font-2 pad-1">
+            <label for="userId">User Id: </label>
+            <input class="input-id" type="text" formControlName="userId">
+        </div>
+        <div class="flex space-between border center font-2 pad-1">
+            <label for="title">Title: </label>
+            <input class="input-title" type="text" formControlName="title">
+        </div>
+        <div class="flex space-between border center font-2 pad-1">
+            <label for="body">Description: </label>
+            <textarea class="input-text-area" type="text"
+                formControlName="body"></textarea>
+        </div>
+        <div class="flex space-between border center font-2 pad-1">
+            <button class="font-2" [disabled]="currentPage !== 'add'"
+                (click)="addPost()">ADD</button>
+            <button class="font-2" [disabled]="currentPage !== 'edit'"
+                type="submit">SUBMIT</button>
+        </div>
+    </form>
+    <button class="font-2" (click)="goBack()">BACK</button>
+</div>

@@ -1,39 +1,67 @@
-import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { PostsService } from '../posts.service';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  AfterViewInit,
+  ChangeDetectorRef,
+} from '@angular/core';
+
+import { DataStoreService } from 'src/app/data-store.service';
+
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { TodoItemModel } from '../models/todoItem';
+import { PostItemModel } from '../models/postItem';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
-export class PostsComponent implements AfterViewInit, OnInit {
+export class PostsComponent implements OnInit, AfterViewInit, OnDestroy {
+  public data: PostItemModel[];
   public displayedColumns: string[] = [
     'id',
     'title',
     'userId',
-    'completed',
+    'body',
     'actions',
   ];
-  public posts$ = this.postsService.getPosts();
-  public dataSource: MatTableDataSource<TodoItemModel>;
-
-  constructor(private postsService: PostsService) {}
+  public dataSource: MatTableDataSource<PostItemModel>;
+  private destroy$ = new Subject();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  ngOnInit() {
-    this.posts$.subscribe((response) => {
-      this.dataSource = new MatTableDataSource(response);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+  constructor(
+    private dataStoreService: DataStoreService,
+    private cd: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource();
+  }
+  ngAfterViewInit() {
+    this.dataStoreService.posts$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((posts) => {
+        this.dataSource.data = posts;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      });
+    this.cd.detectChanges();
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
-  ngAfterViewInit() {}
+  delete(id: number): void {
+    if (window.confirm('Are you sure to delete this item')) {
+      this.dataStoreService.deletePost(id);
+    }
+  }
 }

@@ -2,18 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PostsRoutingModule } from './posts-routing.module';
-import { EditComponent } from './edit/edit.component';
-import { ViewComponent } from './view/view.component';
+import { PostInteractComponent } from './postInteract/postInteract.component';
 import { PostsComponent } from './posts/posts.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
-
-import { HeaderComponent } from '../header/header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [EditComponent, ViewComponent, PostsComponent, HeaderComponent],
+  declarations: [PostInteractComponent, PostsComponent],
   imports: [
     CommonModule,
     PostsRoutingModule,
@@ -21,7 +19,8 @@ import { HeaderComponent } from '../header/header.component';
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
-  // providers: [PostsService],
 })
 export class PostsModule {}

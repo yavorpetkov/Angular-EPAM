@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TodoItemModel } from './models/todoItem';
+import { PostItemModel } from './models/postItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
+  public posts: PostItemModel[] = [];
+  public url: string = 'https://jsonplaceholder.typicode.com/posts';
+
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<TodoItemModel[]> {
-    return this.http.get<TodoItemModel[]>(
-      'https://jsonplaceholder.typicode.com/todos'
-    );
+  getPosts(): Observable<PostItemModel[]> {
+    return this.http.get<PostItemModel[]>(this.url);
   }
-  getPostById(id: number) {
-    return this.http.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
+  getPostsById(id: number): Observable<PostItemModel> {
+    return this.http.get<PostItemModel>(`${this.url}/${id}`);
   }
-  updatePostById() {}
+  addPost(post: PostItemModel): Observable<PostItemModel> {
+    return this.http.post<PostItemModel>(this.url, post);
+  }
+  updatePostById(post: PostItemModel): Observable<PostItemModel[]> {
+    return this.http.put<PostItemModel[]>(`${this.url}/${post.id}`, post);
+  }
+  deletePostById(id: number): Observable<{}> {
+    return this.http.delete(`${this.url}/${id}`);
+  }
 }

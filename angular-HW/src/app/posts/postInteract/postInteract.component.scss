@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  margin-top: 5em;
+}
+.flex {
+  display: flex;
+}
+.column {
+  flex-direction: column;
+}
+.row {
+  flex-direction: row;
+}
+.space-between {
+  justify-content: space-between;
+}
+.center {
+  align-items: center;
+}
+.gap {
+  gap: 2em;
+}
+.border {
+  border: solid 1px gray;
+}
+.input-id {
+  height: 50px;
+  width: 50px;
+  font-size: 30px;
+  text-align: center;
+}
+.input-title {
+  height: 40px;
+  width: 500px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+.input-text-area {
+  height: 100px;
+  width: 500px;
+  font-size: 14px;
+}
+.pad-1 {
+  padding: 10px;
+}
+.pad-2 {
+  padding: 20px;
+}
+.pad-3 {
+  padding: 30px;
+}
+.font-1 {
+  font-size: 14px;
+}
+.font-2 {
+  font-size: 30px;
+}
+.font-3 {
+  font-size: 40px;
+}
