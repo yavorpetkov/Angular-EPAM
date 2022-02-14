@@ -10,7 +10,6 @@ import { DataStoreService } from 'src/app/data-store.service';
 import { PostsService } from '../posts.service';
 
 import { PostItemModel } from '../models/postItem';
-import { window } from 'rxjs';
 
 @Component({
   selector: 'app-post-interact',
@@ -30,8 +29,10 @@ export class PostInteractComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.formData = fb.group({
-      floatLabel: this.floatLabelControl,
+    this.formData = this.fb.group({
+      userId: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      body: ['', [Validators.required]],
     });
   }
 
@@ -39,16 +40,7 @@ export class PostInteractComponent implements OnInit {
     this.currentPage = this.activatedRoute.snapshot.url[0].path;
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
-    this.generateFormField();
     this.setFormValues(id);
-  }
-
-  private generateFormField(): void {
-    this.formData = this.fb.group({
-      userId: new FormControl('', [Validators.required]),
-      title: new FormControl('', [Validators.required]),
-      body: new FormControl('', [Validators.required]),
-    });
   }
 
   private setFormValues(id: number): void {
@@ -69,6 +61,7 @@ export class PostInteractComponent implements OnInit {
 
   private addPost(): void {
     this.dataStoreService.addPost({ ...this.data, ...this.formData.value });
+    this.postsService.addPost({ ...this.data, ...this.formData.value });
     this.goBack();
   }
   private updatePost(): void {
@@ -77,15 +70,13 @@ export class PostInteractComponent implements OnInit {
     this.goBack();
   }
 
-  public onSubmit(): void {
-    if (this.formData.valid) {
-      if (this.currentPage === 'add') {
-        this.addPost();
-      } else if (this.currentPage === 'edit') {
-        this.updatePost();
-      }
-    } else {
-      confirm('You need to fill out the form');
+  public onSubmit(): void | boolean {
+    if (!this.formData.valid) return confirm('You need to fill out the form');
+
+    if (this.currentPage === 'add') {
+      this.addPost();
+    } else if (this.currentPage === 'edit') {
+      this.updatePost();
     }
   }
 
